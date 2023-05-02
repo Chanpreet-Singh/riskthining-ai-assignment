@@ -7,7 +7,7 @@ import pandas as pd
 import constants
 
 
-class Preprocess:
+class FeatureEngg:
     def __init__(self):
         assert constants.semi_processed_file_name
         assert constants.processed_data_folder
@@ -66,5 +66,5 @@ class Preprocess:
         self.dump_processed_data(data)
 
 if __name__ == "__main__":
-    cls_obj = Preprocess()
+    cls_obj = FeatureEngg()
     cls_obj.main()
