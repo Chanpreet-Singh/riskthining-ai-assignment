@@ -152,7 +152,7 @@ class Preprocess:
         # There are some files as per metadata["Symbols"] but not found in the folder. This function will give you relevant files paths to those not found.
         self.unprocessed_suggestions(metadata)
 
-        final_data.to_parquet(os.path.join(constants.semi_processed_data_folder, "processed_data.parquet"))
+        final_data.to_parquet(os.path.join(constants.semi_processed_data_folder, constants.semi_processed_file_name))
 
 
 if __name__ == "__main__":
