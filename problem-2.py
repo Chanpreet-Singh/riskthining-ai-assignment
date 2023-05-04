@@ -54,7 +54,7 @@ class FeatureEngg:
         self.folder_tasks()
 
         data = self.read_parquet_file(os.path.join(constants.semi_processed_data_folder, constants.semi_processed_file_name))
-        assert not data.empty, "Blank file - {0}".format(constants.semi_processed_data_folder, constants.semi_processed_file_name)
+        assert not data.empty, "Blank file - {0}".format(os.path.join(constants.semi_processed_data_folder, constants.semi_processed_file_name))
 
         all_columns = data.columns
         assert "Symbol" in all_columns, "Column 'symbol' is missing in the data"
