@@ -16,7 +16,6 @@ def problem_1a():
 
 @task
 def problem_1b():
-    print("Starting problem-1-b")
     exec_status = False
     proc = subprocess.call([spark_prefix, "problem-1-b.py"])
     if proc == 0:
@@ -26,7 +25,6 @@ def problem_1b():
 
 @task
 def problem_2():
-    print("Starting problem-2")
     exec_status = False
     proc = subprocess.call([spark_prefix, "problem-2.py"])
     if proc == 0:
@@ -36,7 +34,6 @@ def problem_2():
 
 @task
 def problem_3():
-    print("Starting problem-3")
     exec_status = False
     proc = subprocess.call([python_prefix, "problem-3.py"])
     if proc == 0:
@@ -47,15 +44,12 @@ def problem_3():
 def riskthinking_assignment_master():
     a = problem_1a.submit()
     assert a.result(), "Execution of problem_1a failed!"
-    print("\n"*25)
 
     b = problem_1b.submit(wait_for=[a])
     assert b.result(), "Execution of problem_1b failed!"
-    print("\n" * 25)
 
     c = problem_2.submit(wait_for=[b])
     assert c.result(), "Execution of problem_2 failed!"
-    print("\n" * 25)
 
     d = problem_3.submit(wait_for=[c])
     assert d.result(), "Execution of problem_3 failed!"
