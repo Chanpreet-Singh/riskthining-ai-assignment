@@ -27,7 +27,7 @@ df = df.withColumn("adj_close_rolling_med", percentile_approx("Adj Close", 0.5).
 features_needed = ['vol_moving_avg', 'adj_close_rolling_med', 'Volume']
 features_not_needed = list(set(list(df.columns)).difference(set(features_needed)))
 df = df.drop(*features_not_needed)
-df.repartition(30)
+df.repartition(50)
 df.write.mode("overwrite").parquet(os.path.join(constants.model_folder, constants.model_raw_data))
 print("\n"*10)
 print("Total time taken: {0}s".format(int(time.time() - st)))
