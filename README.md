@@ -35,6 +35,7 @@ This problem is solved using python script wherein [RandomForestRegressor](https
 <br>
 The orchestrating is done in a sequential manner of different tasks as a single flow, problem-1a -> problem-1b -> problem-2 -> problem-3 in such a way - if a task fails the subsequent tasks are not executed. It is done to make fault-detection easy.
 <br>
+The orchestration is maintained in [master.py](https://github.com/Chanpreet-Singh/riskthining-ai-assignment/blob/main/master.py "master.py") <br>
 Steps to execute:<br>
 `docker build -t my_flow .` this command will create an image named *my_flow* <br>
 `docker run my_flow` this command will execute the image <br>
