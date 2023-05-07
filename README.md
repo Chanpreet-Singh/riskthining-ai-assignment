@@ -36,6 +36,10 @@ Script Name - [problem-3.py](https://github.com/Chanpreet-Singh/riskthining-ai-a
 
 ------------
 **All the above 4 scripts are sequentially executed using Prefect orchestrating tool inside a containerized environment.**
+<br>
+Steps to execute:<br>
+`docker build -t my_flow .` this command will create an image named *my_flow* <br>
+`docker run my_flow` this command will execute the image <br>
 
 ------------
 ##### Solution of Problem-4
