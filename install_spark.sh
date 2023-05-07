@@ -1,3 +1,5 @@
+# Install spark(not in docker)
+
 folderName='chanpreet_vm'
 mkdir $folderName
 cd $folderName
