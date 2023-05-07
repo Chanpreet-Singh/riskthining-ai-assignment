@@ -1,7 +1,10 @@
 import os
+import gc
+import sys
+import math
 import pickle
-import shutil
 import traceback
+import multiprocessing
 
 import pandas as pd
 
@@ -14,20 +17,9 @@ import constants
 
 class Modeltraining:
     def __init__(self):
-        assert constants.processed_data_folder
-        assert constants.processed_file_name
+        assert constants.model_raw_data
         assert constants.model_folder
         assert constants.model_file
-
-    def folder_tasks(self):
-        try:
-            if not os.path.isdir(constants.model_folder):
-                os.mkdir(constants.model_folder)
-            else:
-                shutil.rmtree(constants.model_folder)
-                os.mkdir(constants.model_folder)
-        except Exception as e:
-            print("Error : {0}\nException : {1}".format(e, traceback.format_exc()))
 
     def read_parquet_file(self, file_path):
         data = pd.DataFrame()
@@ -46,51 +38,43 @@ class Modeltraining:
             print("Error : {0}\nException : {1}".format(e, traceback.format_exc()))
 
     def perform_training_data(self, data):
+        model = None
         try:
             print("Inside training..")
-            data['Date'] = pd.to_datetime(data['Date'])
-            data.set_index('Date', inplace=True)
-
-            # Remove rows with NaN values
             data.dropna(inplace=True)
-
-            # Select features and target
+            bytes_to_GB = 1024*1024*1024
+            old_size = round(sys.getsizeof(data)/bytes_to_GB, 3)
+            # I had to do this because the memory consumption by this file at model.fit() function used to go upto 89% and system used to get crashed!
+            for column in data:
+                if data[column].dtype == "float64":
+                    data[column]=pd.to_numeric(data[column], downcast="float")
+            print("Size of data reduced from {0} -> {1}".format(old_size, round(sys.getsizeof(data)/bytes_to_GB, 3)))
+            data = data.sample(frac=0.1, replace=False)
+            print("New size - {0}".format(round(sys.getsizeof(data)/bytes_to_GB, 3)))
             features = ['vol_moving_avg', 'adj_close_rolling_med']
             target = 'Volume'
-
-            X = data[features]
-            y = data[target]
-
-            # Split data into train and test sets
-            X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
-
-
-            # Create a RandomForestRegressor model
-            model = RandomForestRegressor(n_estimators=100, random_state=42, verbose=1, n_jobs=-1)
-
+            processor_to_use = math.floor(multiprocessing.cpu_count()/4) if int(multiprocessing.cpu_count()/4)>0 else 1
+            X_train, X_test, y_train, y_test = train_test_split(data[features], data[target], test_size=0.2, random_state=42)
+            print("Total Records\nTrain: {0}\nTest: {1}".format(len(X_train), len(X_test)))
+            model = RandomForestRegressor(n_estimators=25, random_state=42, verbose=1, n_jobs=processor_to_use)
             print("Started training..")
-            # Train the model
             model.fit(X_train, y_train)
-
             print("Training complete!")
-            # Make predictions on test data
             y_pred = model.predict(X_test)
-
-            # Calculate the Mean Absolute Error and Mean Squared Error
             mae = mean_absolute_error(y_test, y_pred)
             mse = mean_squared_error(y_test, y_pred)
             print("Mean absolute error : {0}\nMean squared error : {1}".format(mae, mse))
-            self.save_model(model)
         except Exception as e:
             print("Error : {0}\nException : {1}".format(e, traceback.format_exc()))
+        return model
 
     def main(self):
-        self.folder_tasks()
-
-        data = self.read_parquet_file(os.path.join(constants.processed_data_folder, constants.processed_file_name))
+        gc.collect(1)
+        data = self.read_parquet_file(os.path.join(constants.model_folder, constants.model_raw_data))
         assert not data.empty, "Blank file - {0}".format(os.path.join(constants.processed_data_folder, constants.processed_file_name))
-
-        self.perform_training_data(data)
+        model = self.perform_training_data(data)
+        assert model, "There was some problem with the training of data"
+        self.save_model(model)
 
 if __name__ == "__main__":
     cls_obj = Modeltraining()
