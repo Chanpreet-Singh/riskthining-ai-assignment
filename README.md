@@ -47,4 +47,5 @@ This problem is solved in three parts:
 - **Rest API**: The API is built using Fast API. Script name: [problem-4-api.py](https://github.com/Chanpreet-Singh/riskthining-ai-assignment/blob/main/problem-4-api.py "problem-4-api.py"). Command to execute: `uvicorn problem-4-api:app`
 - **Nginx Load balancer** - for interacting with requests coming from outside VM. Script and Command to setup nginx - `cd nginx-deploy-commands/ && bash setup_nginx.sh`
 - **Gearman Job Server** - for keeping the model always alive in RAM i.e. making the model readily available. It is chosen because the resultant model(despite training on just 10% of the data, refer problem-3) is atleast 3.5GB in size. Thus, loading such a huge model at each request would be not only processor intensive but memory intensive too in case of high concurrent requests. Script name: [problem-4-model_loader.py](https://github.com/Chanpreet-Singh/riskthining-ai-assignment/blob/main/problem-4-model_loader.py "problem-4-model_loader.py")
+
 ![DFD for the model deployment](./images/model_deploy.png)
