@@ -60,3 +60,4 @@ I took help from a few sources:
  - **Python multiprocessing tutorial**: https://www.digitalocean.com/community/tutorials/python-multiprocessing-example
  - There was an instance during development where accidentally I messed up my python and eventually the whole OS, referred to this to repair them: https://askubuntu.com/questions/1428181/module-lib-has-no-attribute-x509-v-flag-cb-issuer-check/1433089#1433089
  - **Missed proxy_pass** configuration during NGINX setup: https://stackoverflow.com/questions/31859456/cant-access-nginx-server-from-outside
+- **Gearman**: http://gearman.org/documentation/
