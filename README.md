@@ -49,3 +49,14 @@ Script name: [problem-4-model_loader.py](https://github.com/Chanpreet-Singh/risk
 Note: A check has been applied in the API Service that without spinning up the gearman worker of the model, it won't execute.
 
 ![DFD for the model deployment](./images/model_deploy.png)
+
+
+------------
+##### References
+I took help from a few sources:
+ - **Prefect**: https://www.youtube.com/playlist?list=PLZfWmQS5hVzFmPh4hVj9ijtl-jRhsWD6E
+ - **Chat GPT**: https://chat.openai.com/ (Pardon me for this- I could not maintain the history) The code I majorly referred to Windowing functions/operations in a pyspark dataframe 
+ - **Read parquet in pandas**: https://pandas.pydata.org/docs/reference/api/pandas.read_parquet.html
+ - **Python multiprocessing tutorial**: https://www.digitalocean.com/community/tutorials/python-multiprocessing-example
+ - There was an instance during development where accidentally I messed up my python and eventually the whole OS, referred to this to repair them: https://askubuntu.com/questions/1428181/module-lib-has-no-attribute-x509-v-flag-cb-issuer-check/1433089#1433089
+ - **Missed proxy_pass** configuration during NGINX setup: https://stackoverflow.com/questions/31859456/cant-access-nginx-server-from-outside
