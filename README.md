@@ -38,7 +38,7 @@ The orchestrating is done in a sequential manner of different tasks as a single 
 The orchestration is maintained in [master.py](https://github.com/Chanpreet-Singh/riskthining-ai-assignment/blob/main/master.py "master.py") <br>
 Steps to execute:<br>
 `docker build -t my_flow .` this command will create an image named *my_flow* <br>
-`docker run my_flow` this command will execute the image <br>
+`docker run -v .:/app my_flow` this command will execute the image <br>
 
 ------------
 ##### Solution of Problem-4
