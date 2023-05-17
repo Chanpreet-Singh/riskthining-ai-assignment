@@ -14,7 +14,7 @@ Development environment:
 - [Prefect orchestration tool](https://www.prefect.io/ "Prefect orchestration tool")
 - [Fast API Service](https://fastapi.tiangolo.com/ "Fast API Service"), [Gearman Job Server](http://gearman.org/ "Gearman Job Server") and [NGINX](https://www.nginx.com/ "NGINX") - for API building and model deployment
 
-Before proceeding, the data should be downloaded(from the URL  given in the assignment) and extracted into a folder named 'archive'.
+Before proceeding, the data should be downloaded(from the URL  given in the assignment) and extracted into a folder named 'archive'. Since, problem-4 is not dockerized, make sure to create a python virtual environment as venv and install all the dependencies mentioned in [requirements.txt](https://github.com/Chanpreet-Singh/riskthining-ai-assignment/blob/main/requirements.txt "requirements.txt") file
 
 ------------
 ##### Solution of Problem-1
@@ -55,11 +55,12 @@ Note: A check has been applied in the API Service that without spinning up the g
 
 ------------
 ##### **Testing the API**
+The API is deployed in an AWS EC2 instance using the above architecture.<br>
 To test the API, you can use the script [test_api.py](https://github.com/Chanpreet-Singh/riskthining-ai-assignment/blob/main/test_api.py "test_api.py")<br>
 Command to execute: `python test_api.py`
 
 It can also be tested using other clients like cURL, [Java](https://rapidapi.com/guides/make-api-call-java "Java"), etc<br>
-cURL ommand to execute(in Shell): `curl --location 'http://127.0.0.1:8000/predict?vol_moving_avg=12121&adj_close_rolling_med=23'`
+cURL ommand to execute(in Shell): `curl --location 'http://18.219.86.19/predict?vol_moving_avg=12121&adj_close_rolling_med=23'`
 
 ------------
 ##### References
