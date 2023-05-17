@@ -1,6 +1,6 @@
 import requests
 
-url = "http://127.0.0.1:8000/predict?vol_moving_avg={0}&adj_close_rolling_med={1}"
+url = "http://18.219.86.19/predict?vol_moving_avg={0}&adj_close_rolling_med={1}"
 
 while True:
     vol_moving_avg = input("Enter vol_moving_avg: ")
