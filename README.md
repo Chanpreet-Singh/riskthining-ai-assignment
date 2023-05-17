@@ -14,7 +14,7 @@ Development environment:
 - [Prefect orchestration tool](https://www.prefect.io/ "Prefect orchestration tool")
 - [Fast API Service](https://fastapi.tiangolo.com/ "Fast API Service"), [Gearman Job Server](http://gearman.org/ "Gearman Job Server") and [NGINX](https://www.nginx.com/ "NGINX") - for API building and model deployment
 
-Before proceeding, the data should be downloaded(from the URL  given in the assignment) and extracted into a folder named 'archive'.
+Before proceeding, the data should be downloaded(from the URL  given in the assignment) and extracted into a folder named 'archive'. Since, problem-4 is not dockerized, make sure to create a python virtual environment as venv and install all the dependencies mentioned in [requirements.txt](https://github.com/Chanpreet-Singh/riskthining-ai-assignment/blob/main/requirements.txt "requirements.txt") file
 
 ------------
 ##### Solution of Problem-1
