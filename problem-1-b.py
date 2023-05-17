@@ -1,10 +1,32 @@
 import os
 import time
 import shutil
+import traceback
 
 import constants
 from pyspark.sql import SparkSession
 
+
+def set_folder_permissions():
+    try:
+        folder_paths = [constants.processed_data_folder]
+        permissions = 0o777
+        for each_folder_path in folder_paths:
+            for root, dirs, files in os.walk(each_folder_path):
+                for filename in files:
+                    file_path = os.path.join(root, filename)
+                    try:
+                        os.chmod(file_path, permissions)
+                    except Exception as e:
+                        print("Error : {0}\nException : {1}".format(e, traceback.format_exc()))
+                for dir_name in dirs:
+                    dir_path = os.path.join(root, dir_name)
+                    try:
+                        os.chmod(dir_path, permissions)
+                    except Exception as e:
+                        print("Error : {0}\nException : {1}".format(e, traceback.format_exc()))
+    except Exception as e:
+        print("Error : {0}\nException : {1}".format(e, traceback.format_exc()))
 
 def folder_validations_and_operations():
     assert constants.semi_processed_data_folder, "input folder to this script doesn't exist!"
@@ -36,3 +58,4 @@ final_data.write.mode("overwrite").parquet(os.path.join(constants.processed_data
 print("\n"*10)
 print("Total time taken: {0}s".format(int(time.time() - st)))
 spark.stop()
+set_folder_permissions()

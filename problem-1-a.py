@@ -45,6 +45,27 @@ class Problem1a:
         except Exception as e:
             print("Error : {0}\nException : {1}".format(e, traceback.format_exc()))
 
+def set_folder_permissions():
+    try:
+        folder_paths = [constants.semi_processed_data_folder]
+        permissions = 0o777
+        for each_folder_path in folder_paths:
+            for root, dirs, files in os.walk(each_folder_path):
+                for filename in files:
+                    file_path = os.path.join(root, filename)
+                    try:
+                        os.chmod(file_path, permissions)
+                    except Exception as e:
+                        print("Error : {0}\nException : {1}".format(e, traceback.format_exc()))
+                for dir_name in dirs:
+                    dir_path = os.path.join(root, dir_name)
+                    try:
+                        os.chmod(dir_path, permissions)
+                    except Exception as e:
+                        print("Error : {0}\nException : {1}".format(e, traceback.format_exc()))
+    except Exception as e:
+        print("Error : {0}\nException : {1}".format(e, traceback.format_exc()))
+
 def read_csv_file(file_path):
     data = pd.DataFrame()
     try:
@@ -133,6 +154,7 @@ def main():
     process_folder(constants.stocks_folder)
     print("Total time taken: {0}s".format(int(time.time() - st)))
     print_unprocessed()
+    set_folder_permissions()
 
 if __name__ == "__main__":
     cls_obj = Problem1a().folder_tasks()
