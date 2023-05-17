@@ -43,20 +43,29 @@ Steps to execute:<br>
 ------------
 ##### Solution of Problem-4
 This problem is solved in three parts:
-- **Rest API**: The API is built using Fast API. Script name: [problem-4-api.py](https://github.com/Chanpreet-Singh/riskthining-ai-assignment/blob/main/problem-4-api.py "problem-4-api.py"). Command to execute: `uvicorn problem-4-api:app`
-- **Nginx Load balancer** - for interacting with requests coming from outside VM. Script and Command to setup nginx - `cd nginx-deploy-commands/ && bash setup_nginx.sh`
+- **Rest API**: The API is built using Fast API. Script name: [problem-4-api.py](https://github.com/Chanpreet-Singh/riskthining-ai-assignment/blob/main/problem-4-api.py "problem-4-api.py").<br> Command to execute: `source venv/bin/activate; uvicorn problem-4-api:app`
+- **Nginx Load balancer** - for interacting with requests coming from outside VM.<br> Script and Command to setup nginx - `cd nginx-deploy-commands/ && bash setup_nginx.sh`<br>
+Note: This step is optional and might be required for production systems.
 - **Gearman Job Server** - for keeping the model always alive in RAM i.e. making the model readily available. It is chosen because the resultant model(despite training on just 10% of the data, refer problem-3) is atleast 3.5GB in size. Thus, loading such a huge model at each request would be not only processor intensive but memory intensive too in case of high concurrent requests. <br>
 Script name: [problem-4-model_loader.py](https://github.com/Chanpreet-Singh/riskthining-ai-assignment/blob/main/problem-4-model_loader.py "problem-4-model_loader.py")<br>
+Command to execute: `source venv/bin/activate; python problem-4-model_loader.py`<br>
 Note: A check has been applied in the API Service that without spinning up the gearman worker of the model, it won't execute.
 
 ![DFD for the model deployment](./images/model_deploy.png)
 
+------------
+##### **Testing the API**
+To test the API, you can use the script [test_api.py](https://github.com/Chanpreet-Singh/riskthining-ai-assignment/blob/main/test_api.py "test_api.py")<br>
+Command to execute: `python test_api.py`
+
+It can also be tested using other clients like cURL, [Java](https://rapidapi.com/guides/make-api-call-java "Java"), etc<br>
+cURL ommand to execute(in Shell): `curl --location 'http://127.0.0.1:8000/predict?vol_moving_avg=12121&adj_close_rolling_med=23'`
 
 ------------
 ##### References
 I took help from a few sources:
  - **Prefect**: https://www.youtube.com/playlist?list=PLZfWmQS5hVzFmPh4hVj9ijtl-jRhsWD6E
- - **Chat GPT**: https://chat.openai.com/ (Pardon me for this- I could not maintain the history) The code I majorly referred to Windowing functions/operations in a pyspark dataframe 
+ - **Chat GPT**: https://chat.openai.com/ (Pardon me for this- I could not maintain the history) The code I majorly referred to was Windowing functions/operations in a pyspark dataframe 
  - **Read parquet in pandas**: https://pandas.pydata.org/docs/reference/api/pandas.read_parquet.html
  - **Python multiprocessing tutorial**: https://www.digitalocean.com/community/tutorials/python-multiprocessing-example
  - There was an instance during development where accidentally I messed up my python and eventually the whole OS, referred to this to repair them: https://askubuntu.com/questions/1428181/module-lib-has-no-attribute-x509-v-flag-cb-issuer-check/1433089#1433089
