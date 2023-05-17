@@ -39,7 +39,7 @@ async def use_model(vol_moving_avg: int, adj_close_rolling_med: int):
     data = json.dumps({"vol_moving_avg": vol_moving_avg, "adj_close_rolling_med": adj_close_rolling_med})
     output = gm_client.submit_job(constants.model_gearman_task_name, data)
     output = json.loads(output.result)
-    if output["value"]:
+    if output["value"] is not None:
         api_output = output["value"]
     return api_output
 
