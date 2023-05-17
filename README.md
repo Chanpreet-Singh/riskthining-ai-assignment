@@ -55,11 +55,12 @@ Note: A check has been applied in the API Service that without spinning up the g
 
 ------------
 ##### **Testing the API**
+The API is deployed in an AWS EC2 instance using the above architecture.<br>
 To test the API, you can use the script [test_api.py](https://github.com/Chanpreet-Singh/riskthining-ai-assignment/blob/main/test_api.py "test_api.py")<br>
 Command to execute: `python test_api.py`
 
 It can also be tested using other clients like cURL, [Java](https://rapidapi.com/guides/make-api-call-java "Java"), etc<br>
-cURL ommand to execute(in Shell): `curl --location 'http://127.0.0.1:8000/predict?vol_moving_avg=12121&adj_close_rolling_med=23'`
+cURL ommand to execute(in Shell): `curl --location 'http://18.219.86.19/predict?vol_moving_avg=12121&adj_close_rolling_med=23'`
 
 ------------
 ##### References
