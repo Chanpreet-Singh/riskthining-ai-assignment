@@ -61,8 +61,8 @@ Command to execute: `python test_api.py`
 
 It can also be tested using other clients like cURL, [Java](https://rapidapi.com/guides/make-api-call-java "Java"), etc<br>
 cURL ommand to execute(in Shell): `curl --location 'http://18.219.86.19/predict?vol_moving_avg=12121&adj_close_rolling_med=23'`
-
-Updated the testing part:
+<br><br>
+**Updated the testing part(after 5 weeks of hosting):**<br>
 Since the hosted URL was non-economical for me and there was delay in the evaluation, I decided to terminate the hosted instance and provided a python notebook in which a lot of test cases are shown as testing of the API. Please review [Riskthinking-ai-API-testing.ipynb](https://github.com/Chanpreet-Singh/riskthining-ai-assignment/blob/main/Riskthinking-ai-API-testing.ipynb) for the same.
 
 ------------
